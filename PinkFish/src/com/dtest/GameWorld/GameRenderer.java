@@ -34,6 +34,8 @@ public class GameRenderer {
     private Floor floor1, floor2;
     private TextureRegion floorTexture, bedrockTexture;
     
+    private float collisionDetectedOpacity = 0.0f;
+    
     public GameRenderer(GameWorld gameWorld) {
 		this.gameWorld = gameWorld;
 		orthographicCamera = new OrthographicCamera();
@@ -68,11 +70,14 @@ public class GameRenderer {
 	}
 	
 	public void drawBackground() {
-        shapeRenderer.begin(ShapeType.FilledRectangle);
-        shapeRenderer.setColor(new Color(255 / 255.0f, 255 / 255.0f, 255 / 255.0f, 1));
-//        shapeRenderer.setColor(new Color(4 / 255.0f, 32 / 255.0f, 54 / 255.0f, 1));
-        shapeRenderer.filledRect(0, 0, 136, GameConstant.gameHeight);
-        shapeRenderer.end();
+		spriteBatch.begin();
+		spriteBatch.enableBlending();
+		spriteBatch.draw(
+			background,
+			0, 0,
+			GameConstant.gameWidth, GameConstant.gameHeight - GameConstant.bedrockHeight - GameConstant.floorHeight
+		);
+		spriteBatch.end();
 	}
 	
 	public void drawBedrock() {
@@ -84,6 +89,16 @@ public class GameRenderer {
         	GameConstant.gameWidth, GameConstant.bedrockHeight
         );
         spriteBatch.end();
+	}
+	
+	public void drawCollisionDetected() {
+		Gdx.gl.glEnable(GL10.GL_BLEND);
+	    Gdx.gl.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
+		shapeRenderer.begin(ShapeType.FilledRectangle);
+		shapeRenderer.setColor(new Color(255 / 255.0f, 255 / 255.0f, 255 / 255.0f, collisionDetectedOpacity));
+		shapeRenderer.filledRect(0, 0, GameConstant.gameWidth, GameConstant.gameHeight);
+		shapeRenderer.end();
+		collisionDetectedOpacity += GameConstant.collisionDetectedOpacityRate;
 	}
 	
 	public void drawFish(float runTime) {
@@ -128,11 +143,11 @@ public class GameRenderer {
 	public void drawIsReady() {
 		spriteBatch.begin();
     	AssetLoader.shadow.draw(
-    		spriteBatch, GameConstant.StringTouchMe, 
+    		spriteBatch, GameConstant.StringTapMe, 
     		(GameConstant.gameWidth / 2) - 41 + GameConstant.shadowOffset, 75 + GameConstant.shadowOffset
     	);
     	AssetLoader.font.draw(
-    		spriteBatch, GameConstant.StringTouchMe,
+    		spriteBatch, GameConstant.StringTapMe,
     		(GameConstant.gameWidth / 2) - 41, 75
     	);
     	spriteBatch.end();
@@ -176,7 +191,7 @@ public class GameRenderer {
 		AssetLoader.shadow.draw(
 			spriteBatch,
 			highScore,
-			(GameConstant.gameWidth / 2) - (3 * highScore.length() + GameConstant.shadowOffset), 127 + GameConstant.shadowOffset
+			(GameConstant.gameWidth / 2) - (3 * highScore.length() - GameConstant.shadowOffset), 127 + GameConstant.shadowOffset
 		);
 		AssetLoader.font.draw(
 			spriteBatch, 
@@ -256,7 +271,7 @@ public class GameRenderer {
 	public void drawScore() {
 		String score = "" + gameWorld.getScore();
 		spriteBatch.begin();
-		AssetLoader.shadow.draw(spriteBatch, score, (GameConstant.gameWidth / 2) - (3 * score.length()+ GameConstant.shadowOffset), GameConstant.scoreOffsetY + GameConstant.shadowOffset);
+		AssetLoader.shadow.draw(spriteBatch, score, (GameConstant.gameWidth / 2) - (3 * score.length() - GameConstant.shadowOffset), GameConstant.scoreOffsetY + GameConstant.shadowOffset);
 		AssetLoader.font.draw(spriteBatch, score, (GameConstant.gameWidth / 2) - (3 * score.length()), GameConstant.scoreOffsetY);
 		spriteBatch.end();
 	}
@@ -273,10 +288,18 @@ public class GameRenderer {
         if (gameWorld.isReady()) {
         	drawIsReady();
         } else {
-        	if (gameWorld.isGameOver()) {
+        	if (gameWorld.canRestart()) {
         		drawIsGameOver();
         	}
         	drawScore();
+        }
+        
+        if (gameWorld.isCollisionDetected()) {
+        	collisionDetectedOpacity = 1.0f;
+        }
+        if (collisionDetectedOpacity > 0.0f) {
+        	drawCollisionDetected();
+        	gameWorld.clearCollisionDetectedFlag();
         }
         
 //        shapeRenderer.begin(ShapeType.FilledRectangle);

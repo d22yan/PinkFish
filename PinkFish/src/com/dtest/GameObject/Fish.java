@@ -15,6 +15,7 @@ public class Fish {
 	private int height;
 	
 	private boolean isAlive;
+	private boolean isSurfaced;
 	
 	private Circle hitboxBody;
 	
@@ -26,6 +27,7 @@ public class Fish {
 		acceleration = GameConstant.gravity;
 		isAlive = true;
 		hitboxBody = new Circle();
+		isSurfaced = position.y == 0;
 	}
 	
 	public void die() {
@@ -62,6 +64,15 @@ public class Fish {
         position.add(velocity.cpy().mul(delta));
         if (position.y < 0) {
         	position.y = 0;
+        	isSurfaced = true;
+        }
+        
+        if (position.y > GameConstant.gameHeight - height) {
+        	position.y = GameConstant.gameHeight - height;
+        }
+        
+        if (isSurfaced && position.y > 0) {
+        	isSurfaced = false;
         }
         
         updateHitbox();
@@ -97,6 +108,10 @@ public class Fish {
 	
 	public boolean isAlive() {
 		return isAlive;
+	}
+	
+	public boolean isSurfaced() {
+		return isSurfaced;
 	}
 	
 	public boolean isDiving() {

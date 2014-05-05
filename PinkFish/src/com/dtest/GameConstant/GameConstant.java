@@ -54,14 +54,16 @@ public class GameConstant {
 	public static final int pipeIntervalGap = 75;
 	public static final int pipeThroughGap = 35;
 	public static final int pipeMinHeight = 15;
-	public static final int pipeRandomRange = 90;
+	public static final int pipeRandomRange = 70;
 	
 	public static final int scoreOffsetY = 12;
 	public static final int shadowOffset = 1;
 	
+	public static final float collisionDetectedOpacityRate = -0.1f;
+	
 	public static final String StringHighScore = "high score";
 	public static final String StringGameOver = "game over";
-	public static final String StringTouchMe = "touch me";
+	public static final String StringTapMe = "tap me";
 	public static final String StringTryAgain = "try again";
 	
 	public static final String PreferencesFileName = "PinkFish";

@@ -28,7 +28,7 @@ public class AssetLoader {
     	texture = new Texture(Gdx.files.internal("data/texture.png"));
         texture.setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
 
-        background = new TextureRegion(texture, 0, 0, 136, 43);
+        background = new TextureRegion(texture, 0, 0, 136, 85);
         background.flip(false, true);
 
         fishAnimateUp = new TextureRegion(texture, 137, 0, 26, 12);
@@ -44,8 +44,8 @@ public class AssetLoader {
         pipe = new TextureRegion(texture, 165, 11 ,22 ,1);
         pipeEnd = new TextureRegion(texture, 164, 0, 24, 11);
         
-        bedrock = new TextureRegion(texture, 0, 53, 143, 1);
-        floor = new TextureRegion(texture, 0, 43, 143, 10);
+        bedrock = new TextureRegion(texture, 0, 95, 143, 1);
+        floor = new TextureRegion(texture, 0, 85, 143, 10);
         floor.flip(false, true);
         
         font = new BitmapFont(Gdx.files.internal("data/text.fnt"), false);

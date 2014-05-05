@@ -40,7 +40,7 @@ public class InputHandler implements InputProcessor {
 		
 		fish.onClick();
 		
-		if (gameWorld.isGameOver()) {
+		if (gameWorld.canRestart()) {
 			gameWorld.restart();
 		}
 		

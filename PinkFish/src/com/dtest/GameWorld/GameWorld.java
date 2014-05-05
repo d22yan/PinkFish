@@ -20,6 +20,9 @@ public class GameWorld {
 	private Floor floor1, floor2;
 	
 	private int score = 0;
+	private boolean collisionDetectedFlag = false;
+	private boolean godMode = false;
+	
 	
 	public GameWorld(float gameMidPointY) {
 		currentState = GameState.READY;
@@ -55,7 +58,8 @@ public class GameWorld {
 	}
 	
 	public void handleCollision() {
-		if (pipe1.collide(fish) || pipe2.collide(fish) || pipe3.collide(fish) || floor1.collide(fish)) {
+		if (!godMode && (pipe1.collide(fish) || pipe2.collide(fish) || pipe3.collide(fish) || floor1.collide(fish))) {
+			collisionDetectedFlag = true;
 			currentState = GameState.GAMEOVER;
 			if (score > AssetLoader.getHighScore()) {
 				AssetLoader.setHighScore(score);
@@ -183,12 +187,20 @@ public class GameWorld {
 		return floor2;
 	}
 	
+	public boolean isCollisionDetected() {
+		return collisionDetectedFlag;
+	}
+	
+	public void clearCollisionDetectedFlag() {
+		collisionDetectedFlag = false;
+	}
+	
 	public boolean isReady() {
 		return currentState == GameState.READY;
 	}
 	
-	public boolean isGameOver() {
-		return currentState == GameState.GAMEOVER;
+	public boolean canRestart() {
+		return currentState == GameState.GAMEOVER && fish.isSurfaced();
 	}
-
+	
 }
