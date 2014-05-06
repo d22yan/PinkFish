@@ -144,11 +144,11 @@ public class GameRenderer {
 		spriteBatch.begin();
     	AssetLoader.shadow.draw(
     		spriteBatch, GameConstant.StringTapMe, 
-    		(GameConstant.gameWidth / 2) - 41 + GameConstant.shadowOffset, 75 + GameConstant.shadowOffset
+    		(GameConstant.gameWidth / 2) - (5 * GameConstant.StringTapMe.length() - GameConstant.shadowOffset), 75 + GameConstant.shadowOffset
     	);
     	AssetLoader.font.draw(
     		spriteBatch, GameConstant.StringTapMe,
-    		(GameConstant.gameWidth / 2) - 41, 75
+    		(GameConstant.gameWidth / 2) - (5 * GameConstant.StringTapMe.length()), 75
     	);
     	spriteBatch.end();
 	}
