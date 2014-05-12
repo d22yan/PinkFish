@@ -65,6 +65,7 @@ public class GameConstant {
 	public static final String StringGameOver = "game over";
 	public static final String StringTapMe = "tap me";
 	public static final String StringTryAgain = "try again";
+	public static final String StringPinkFish= "pink fish";
 	
 	public static final String PreferencesFileName = "PinkFish";
 	public static final String PreferencesHighScore = "highScore";

@@ -142,13 +142,21 @@ public class GameRenderer {
 	
 	public void drawIsReady() {
 		spriteBatch.begin();
+		AssetLoader.shadow.draw(
+			spriteBatch, GameConstant.StringPinkFish, 
+			(GameConstant.gameWidth / 2) - (4.5f * GameConstant.StringPinkFish.length() - GameConstant.shadowOffset), 35 + GameConstant.shadowOffset
+		);
+    	AssetLoader.font.draw(
+    		spriteBatch, GameConstant.StringPinkFish,
+    		(GameConstant.gameWidth / 2) - (4.5f * GameConstant.StringPinkFish.length()), 35
+    	);
     	AssetLoader.shadow.draw(
     		spriteBatch, GameConstant.StringTapMe, 
-    		(GameConstant.gameWidth / 2) - (5 * GameConstant.StringTapMe.length() - GameConstant.shadowOffset), 75 + GameConstant.shadowOffset
+    		(GameConstant.gameWidth / 2) - (5.5f * GameConstant.StringTapMe.length() - GameConstant.shadowOffset), 75 + GameConstant.shadowOffset
     	);
     	AssetLoader.font.draw(
     		spriteBatch, GameConstant.StringTapMe,
-    		(GameConstant.gameWidth / 2) - (5 * GameConstant.StringTapMe.length()), 75
+    		(GameConstant.gameWidth / 2) - (5.5f * GameConstant.StringTapMe.length()), 75
     	);
     	spriteBatch.end();
 	}
