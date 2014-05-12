@@ -9,7 +9,7 @@ import com.dtest.GameConstant.GameConstant.GameState;
 import com.dtest.GameObject.Fish;
 import com.dtest.GameObject.Floor;
 import com.dtest.GameObject.Pipe;
-import com.dtest.OrangeFishHelper.AssetLoader;
+import com.dtest.PinkFishHelper.AssetLoader;
 
 public class GameWorld {
 	

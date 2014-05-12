@@ -5,7 +5,7 @@ import com.badlogic.gdx.Screen;
 import com.dtest.GameConstant.GameConstant;
 import com.dtest.GameWorld.GameRenderer;
 import com.dtest.GameWorld.GameWorld;
-import com.dtest.OrangeFishHelper.InputHandler;
+import com.dtest.PinkFishHelper.InputHandler;
 
 public class GameScreen implements Screen {
 

@@ -1,7 +1,7 @@
 package com.dtest.PinkFish;
 
 import com.badlogic.gdx.Game;
-import com.dtest.OrangeFishHelper.AssetLoader;
+import com.dtest.PinkFishHelper.AssetLoader;
 import com.dtest.Screen.GameScreen;
 
 public class PinkFishGame extends Game {
